@@ -15,16 +15,11 @@
  */
 package com.ibm.cf.config;
 
-import org.springframework.cloud.config.java.AbstractCloudConfig;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-
-
-public class Config {
-  
-  @Configuration
-  @Profile("cloud")
-  static class CloudConfiguration extends AbstractCloudConfig {
-    
-  }
-}
+//public class Config {
+//  
+//  @Configuration
+//  @Profile("cloud")
+//  static class CloudConfiguration extends AbstractCloudConfig {
+//    
+//  }
+//}
