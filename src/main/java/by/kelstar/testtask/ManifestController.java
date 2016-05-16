@@ -39,5 +39,6 @@ public class ManifestController {
     response.setContentType("text/plain");
     response.getWriter().write(manifest.toString());
   }
+  
 }
 
