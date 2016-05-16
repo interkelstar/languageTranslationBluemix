@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.cf.config;
+package by.kelstar.testtask;
 
-//public class Config {
-//  
-//  @Configuration
-//  @Profile("cloud")
-//  static class CloudConfiguration extends AbstractCloudConfig {
-//    
-//  }
-//}
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class App {
+
+  public static void main(String[] args) throws Exception {
+      SpringApplication.run(App.class, args);
+  }
+
+}
