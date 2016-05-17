@@ -12,7 +12,7 @@ public class TranslationController {
     private TranslationService translationService;
     
     @RequestMapping(value = "/translate", method = RequestMethod.POST)
-    public TextDto translate(@RequestBody TextDto textDto, @PathVariable String from, @PathVariable String to) {
+    public TextDto translate(@RequestBody TextDto textDto, @RequestParam String from, @RequestParam String to) {
         final String translation = translationService.translate(textDto.getText(), from, to);
         final TextDto resultDto = new TextDto();
         resultDto.setText(translation);
