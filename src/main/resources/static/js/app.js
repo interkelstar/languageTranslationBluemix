@@ -65,7 +65,7 @@ $( document ).ready(function() {
         "text": $('#input').val().trim()}),
       contentType: "application/json"
     }).done(function(data) {
-      $('#output').text(data.responseJSON.text);
+      $('#output').text(data.text);
     }).fail(function (data) {
       // set the message to display: none to fade it in later.
       var message = $('<div class="alert alert-danger error-message" style="display: none;">');
