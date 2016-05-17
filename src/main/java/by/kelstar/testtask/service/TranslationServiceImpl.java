@@ -11,8 +11,17 @@ public class TranslationServiceImpl implements TranslationService {
     @Override
     public String translate(String text, String from, String to) {
         final LanguageTranslation service = new LanguageTranslation();
-        final TranslationResult translationResult = service.translate(text, Language.valueOf(from), Language.valueOf(to)).execute();
+        final TranslationResult translationResult = service.translate(text, languageFromTag(from), languageFromTag(to)).execute();
         return translationResult.getFirstTranslation();
+    }
+
+    private Language languageFromTag(String languageTag) {
+        for (Language language : Language.values()) {
+            if (language.toString().equals(languageTag)) {
+                return language;
+            }
+        }
+        return null;
     }
     
 }
