@@ -79,4 +79,16 @@ $( document ).ready(function() {
     return false;
   });
   
+  $("#speakBtn").click(function () {
+    $.ajax({
+      type: "POST",
+      url: "/textToSpeech",
+      data: JSON.stringify({
+        "text": $('#output').val().trim()}),
+      contentType: "application/json"
+    }).done(function (data) {
+      console.log(data);
+    })
+  })
+  
 });
