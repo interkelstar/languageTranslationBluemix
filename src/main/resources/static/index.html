@@ -28,12 +28,9 @@
         <h3 class="text-muted">Language Translation</h3>
       </div>
       <h2>Usage</h2>
-      <p>Fill out the form below and click the generate button to quickly construct your manifest.  Click the
-        Generate button to see what the manifest file will look like.  Once you are satisfied, click Download
-        to save your generated manifest file.  Shazam!  Your cf push commands are
-        manageable again.</p>
-      <p>If you need help put, focus in any field to open the tooltip.  If you need more help see the
-        Cloud Foundry <a href="http://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html" target="_blank">documentation</a> on manifests.</p>
+      <p>Choose source language in the input dropdown and fill in the text you want to translate. Then choose target language from the output dropdown. 
+      Notice, that the list of target languages depends on source language you selected. Click Translate button and you will see translation in the output area.</p>
+      <p>When text is translated you can click Speak button and hear translated text. No all languages available to speech service, so sometimes Speak button will be disabled.</p>
       
       <h2>Translate</h2>
       <div class="form-group">
@@ -71,6 +68,11 @@
               <div class="col-sm-6">
                 <button id="speakBtn" class="btn btn-lg btn-info btn-block">Speak</button>
               </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <audio id="audio">Your browser doesn't support audio tag</audio>
             </div>
           </div>
         </div>

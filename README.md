@@ -1,16 +1,92 @@
 ## About
 
-Web app that will generate a Cloud Foundry manifest file to simplify the cf push command for your application.
+Web app for translation text and generate speech afterwards, built on Bluemix services.
+
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy)
 
 ## Usage
 
-Fill out the form and click the generate button.  Copy and past the resulting manifest text into a file called
-manifest.yml and save it in the root of your application.  Your cf push command will automatically
-find the manifest file and use the values within it to deploy your application.
+Choose source language in the input dropdown and fill in the text you want to translate. Then choose target language from the output dropdown. 
+Notice, that the list of target languages depends on source language you selected. Click Translate button and you will see translation in the output area.
+When text is translated you can click Speak button and hear translated text. No all languages available to speech service, so sometimes Speak button will be disabled.
 
-## Getting The Source
+## REST API Usage
 
-    git clone git@github.com:IBM-Bluemix/cf-manifest-generator.git
+----
+  Returns json data with translated text.
+
+* **URL**
+
+  /translate
+
+* **Method:**
+
+  `POST`
+  
+*  **Request Params**
+ 
+   `from=[string]`
+   
+   `to=[string]`
+
+* **Data Params**
+
+  {
+    "text": string
+  }
+
+* **Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ text : "Hola" }`
+    
+* **Simple call:**
+    `$.ajax({
+      type: "POST",
+      url: "/translate?from=en&to=es",
+      data: JSON.stringify({
+                "text": "Hello"
+            }),
+      contentType: "application/json"
+    }).done(function(data) {
+        console.log(data.text);
+    }`
+    
+----
+  Returns wave audio stream with synthesized text.
+
+* **URL**
+
+  /textToSpeech
+
+* **Method:**
+
+  `GET`
+  
+*  **Request Params**
+ 
+   `text=[string]`
+   
+   `lang=[string]`
+
+* **Response:**
+
+  * **Code:** 200 <br />
+    **Content:** audio/wav source
+    
+* **Simple call:**
+    `$.ajax({
+      type: "GET",
+      url: "/textToSpeech",
+      data: {
+        lang: "en",
+        text: "Hello"
+      }
+    }).done(function(data) {
+        console.log(data.text); //array of bytes
+    }`
+* **Simple usage:**
+    `<audio src="/textToSpeech?lang=en&text=Hello></audio>`
 
 ## Building and Deploying
 
@@ -28,22 +104,41 @@ To run the application locally run
 
 Then open your favorite browser and navigate to http://localhost:8080.
 
-You can also deploy this application to BlueMix or any Cloud Foundry deployment.  To deploy the application
-to BlueMix run
+To deploy the application to Bluemix follow instructions below
 
-    mvn -P deploy -Dorg=organization -Dspace=space
+1. Create a Bluemix Account
 
-To execute this command successfully you will need to make sure you have configured your settings.xml file with
-your username and password for BlueMix.  See the Cloud Foundry Maven plugin 
-[documentation](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-maven-plugin#security-and-storing-of-cloud-foundry-credentials) 
-for details on how to do this.  The ID of server this project uses is BlueMix.  If you want to use something 
-different you will need to update the deploy profile in the POM.  If you want to use a Cloud Foundry instance 
-other than BlueMix you will need to change the target property in the deploy profile of the POM.
+    [Sign up][sign_up] in Bluemix, or use an existing account. Watson Services in Beta are free to use.
 
-## License
+2. Download and install the [Cloud-foundry CLI][cloud_foundry] tool
 
-See LICENSE file in the root of the repository.
+3. Edit the `manifest.yml` file and change the `<application-name>` to something unique.
+  ```none
+  applications:
+  - services:
+    - text-to-speech-service
+    name: <application-name>
+    command: node app.js
+    path: .
+    memory: 256M
+  ```
+  The name you use will determinate your application url initially, e.g. `<application-name>.mybluemix.net`.
 
+4. Connect to Bluemix in the command line tool.
+  ```sh
+  $ cf api https://api.ng.bluemix.net
+  $ cf login -u <your user ID>
+  ```
+
+5. Create the Text to Speech service in Bluemix.
+  ```sh
+  $ cf create-service text_to_speech standard text-to-speech-service
+  ```
+
+6. Push it live!
+  ```sh
+  $ cf push
+  ```
 ## Dependencies
 
 For sever side dependencies see the pom.xml file in the root of the repository.
@@ -52,5 +147,3 @@ Client side dependencies can be found below.
 
 * [Bootstrap 3.1.1](http://getbootstrap.com/)
 * [JQuery 1.11](http://jquery.com/)
-* [Typeahead.js 10.2](https://github.com/twitter/typeahead.js/)
-* [typeahead.js-bootstrap3.less](https://github.com/hyspace/typeahead.js-bootstrap3.less)

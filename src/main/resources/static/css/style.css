@@ -8,9 +8,13 @@
 
 .error-message {
     position: fixed;
-    top: 45%;
+    top: 0;
     left: 50%;
     margin-left: -150px;
     width: 300px;
     z-index: 9999;
+}
+
+audio {
+    width: 100%;
 }
