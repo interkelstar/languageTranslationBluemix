@@ -12,7 +12,6 @@ applications:
   path: target/kelstarTestTask-0.0.1-SNAPSHOT.jar
   domain: mybluemix.net
   host: kelstartesttask
-  disk_quota: 1024M
   - services:
     - language-translation-service
     - text-to-speech-service
