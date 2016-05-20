@@ -41,7 +41,8 @@ When text is translated you can click Speak button and hear translated text. No 
     **Content:** `{ text : "Hola" }`
     
 * **Simple call:**
-    `$.ajax({
+    ```
+    $.ajax({
       type: "POST",
       url: "/translate?from=en&to=es",
       data: JSON.stringify({
@@ -50,7 +51,8 @@ When text is translated you can click Speak button and hear translated text. No 
       contentType: "application/json"
     }).done(function(data) {
         console.log(data.text);
-    }`
+    }
+    ```
     
 ----
   Returns wave audio stream with synthesized text.
@@ -75,7 +77,8 @@ When text is translated you can click Speak button and hear translated text. No 
     **Content:** audio/wav source
     
 * **Simple call:**
-    `$.ajax({
+    ```
+    $.ajax({
       type: "GET",
       url: "/textToSpeech",
       data: {
@@ -84,7 +87,8 @@ When text is translated you can click Speak button and hear translated text. No 
       }
     }).done(function(data) {
         console.log(data.text); //array of bytes
-    }`
+    }
+    ```
 * **Simple usage:**
     `<audio src="/textToSpeech?lang=en&text=Hello></audio>`
 
@@ -108,19 +112,29 @@ To deploy the application to Bluemix follow instructions below
 
 1. Create a Bluemix Account
 
-    [Sign up][sign_up] in Bluemix, or use an existing account. Watson Services in Beta are free to use.
+    Sign up in Bluemix, or use an existing account. Watson Services in Beta are free to use.
 
-2. Download and install the [Cloud-foundry CLI][cloud_foundry] tool
+2. Download and install the Cloud-foundry CLI tool
 
 3. Edit the `manifest.yml` file and change the `<application-name>` to something unique.
   ```none
-  applications:
-  - services:
+  declared-services:
+  language-translation-service:
+    label: language_translation
+    plan: standard
+  text-to-speech-service:
+    label: text_to_speech
+    plan: standard
+applications:
+- name: <application-name>
+  memory: 512M
+  instances: 1
+  path: target/<application-name>-0.0.1-SNAPSHOT.jar
+  domain: mybluemix.net
+  host: <application-name>
+  services:
+    - language-translation-service
     - text-to-speech-service
-    name: <application-name>
-    command: node app.js
-    path: .
-    memory: 256M
   ```
   The name you use will determinate your application url initially, e.g. `<application-name>.mybluemix.net`.
 
