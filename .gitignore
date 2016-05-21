@@ -1,9 +1,9 @@
 .classpath
 .project
-.settings/
+#.settings/
 target/
 *.class
-.idea
+#.idea/
 
 # Package Files #
 *.jar
