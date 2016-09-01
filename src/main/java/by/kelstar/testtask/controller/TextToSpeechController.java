@@ -15,8 +15,12 @@ import java.io.InputStream;
 @RestController
 public class TextToSpeechController {
     
+    private final TextToSpeechService textToSpeechService;
+
     @Autowired
-    private TextToSpeechService textToSpeechService;
+    public TextToSpeechController(TextToSpeechService textToSpeechService) {
+        this.textToSpeechService = textToSpeechService;
+    }
 
     @RequestMapping(value = "/textToSpeech", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> textToSpeech(@RequestParam String text, @RequestParam String lang) {

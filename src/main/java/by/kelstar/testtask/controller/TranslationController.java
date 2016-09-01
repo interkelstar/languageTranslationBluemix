@@ -8,9 +8,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class TranslationController {
     
+    private final TranslationService translationService;
+
     @Autowired
-    private TranslationService translationService;
-    
+    public TranslationController(TranslationService translationService) {
+        this.translationService = translationService;
+    }
+
     @RequestMapping(value = "/translate", method = RequestMethod.POST)
     public TextDto translate(@RequestBody TextDto textDto, @RequestParam String from, @RequestParam String to) {
         final String translation = translationService.translate(textDto.getText(), from, to);
