@@ -13,12 +13,12 @@ import java.util.Map;
 public class TextToSpeechServiceImpl implements TextToSpeechService {
 
     private final TextToSpeech textToSpeech = new TextToSpeech();
-    private Map<String, Voice> voicesByLang = new HashMap<String, Voice>(){{
-        voicesByLang.put("en", Voice.EN_ALLISON);
-        voicesByLang.put("es", Voice.ES_ENRIQUE);
-        voicesByLang.put("fr", Voice.FR_RENEE);
-        voicesByLang.put("it", Voice.IT_FRANCESCA);
-        voicesByLang.put("pt", new Voice("pt-BR_IsabelaVoice", "female", "pt-BR"));
+    private Map<String, Voice> voicesByLang = new HashMap<String, Voice>() {{
+        put("en", Voice.EN_ALLISON);
+        put("es", Voice.ES_ENRIQUE);
+        put("fr", Voice.FR_RENEE);
+        put("it", Voice.IT_FRANCESCA);
+        put("pt", new Voice("pt-BR_IsabelaVoice", "female", "pt-BR"));
     }};
 
     @Override
