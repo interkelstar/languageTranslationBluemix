@@ -1,0 +1,22 @@
+{
+  "ServiceId": "com.ibm.cloudoe.orion.client.deploy",
+  "Params": {
+    "Target": {
+      "Url": "https://api.ng.bluemix.net",
+      "Org": "kelstar95@gmail.com",
+      "Space": "kelstar"
+    },
+    "Name": "kelstarTestTask",
+    "Instrumentation": {
+      "host": "kelstartesttask",
+      "domain": "mybluemix.net",
+      "services": [
+        "Language Translation-vu",
+        "Text to Speech-ku"
+      ],
+      "path": "target/kelstarTestTask-0.0.1-SNAPSHOT.jar"
+    }
+  },
+  "Path": "manifest.yml",
+  "Type": "Cloud Foundry"
+}
