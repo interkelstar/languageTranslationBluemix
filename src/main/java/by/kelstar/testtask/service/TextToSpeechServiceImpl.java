@@ -9,17 +9,17 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service("textToSpeechService")
+@Service
 public class TextToSpeechServiceImpl implements TextToSpeechService {
-    
-    private Map<String, Voice> voicesByLang = new HashMap<String, Voice>();
-    {
-        voicesByLang.put("en", Voice.EN_ALLISON);
-        voicesByLang.put("es", Voice.ES_ENRIQUE);
-        voicesByLang.put("fr", Voice.FR_RENEE);
-        voicesByLang.put("it", Voice.IT_FRANCESCA);
-        voicesByLang.put("pt", new Voice("pt-BR_IsabelaVoice", "female", "pt-BR"));
-    }
+
+    private final TextToSpeech textToSpeech = new TextToSpeech();
+    private Map<String, Voice> voicesByLang = new HashMap<String, Voice>() {{
+        put("en", Voice.EN_ALLISON);
+        put("es", Voice.ES_ENRIQUE);
+        put("fr", Voice.FR_RENEE);
+        put("it", Voice.IT_FRANCESCA);
+        put("pt", new Voice("pt-BR_IsabelaVoice", "female", "pt-BR"));
+    }};
 
     @Override
     public InputStream synthesise(String text, String lang) {
@@ -27,7 +27,6 @@ public class TextToSpeechServiceImpl implements TextToSpeechService {
         if (voice == null) {
             throw new IllegalArgumentException("There is no voice for this language");
         }
-        final TextToSpeech service = new TextToSpeech();
-        return service.synthesize(text, voice, AudioFormat.WAV).execute();
+        return textToSpeech.synthesize(text, voice, AudioFormat.WAV).execute();
     }
 }

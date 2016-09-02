@@ -12,6 +12,12 @@ applications:
   path: target/kelstarTestTask-0.0.1-SNAPSHOT.jar
   domain: mybluemix.net
   host: kelstartesttask
+<<<<<<< HEAD
 services:
   - language-translation-service
   - text-to-speech-service
+=======
+  services:
+    - language-translation-service
+    - text-to-speech-service
+>>>>>>> bf3329a64be5b63829435544cf1a18fde803b67f
